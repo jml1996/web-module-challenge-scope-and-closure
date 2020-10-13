@@ -27,11 +27,11 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
- *  Counter1 
+ *  Counter1 uses a closure.
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ * Counter 1.
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * When you want to have multiple counters that store or print different values.
 */
 
 // counter1 code
@@ -43,7 +43,6 @@ function counterMaker() {
 }
 
 const counter1 = counterMaker();
-const counter3 = counterMaker();
 
 // counter2 code
 let count = 0;
@@ -115,23 +114,23 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam 
 */
 
-function getInningScore(){
+function getInningScore(cb){
   let score = 0;
   return function scorefun(){
-    score = score + inning();
+    score = score + cb();
     return score;
   }
 }
 
-const homeTeamScore = getInningScore();
-const awayTeamScore = getInningScore();
+const homeTeamScore = getInningScore(inning);
+const awayTeamScore = getInningScore(inning);
 
 function scoreboard (innings) {
   for (let i = 1; i <= innings; i++){
     console.log(`inning ${i}: ${awayTeamScore()} - ${homeTeamScore()}`);
   }
 }
-// scoreboard(4);
+scoreboard(4);
 
 // Or, without the closures:
 
